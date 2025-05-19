@@ -1,6 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/contexts/auth-context"
+import { Header } from "@/components/header"
 import Link from "next/link"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
@@ -11,14 +14,33 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { tecnicos, especialidades, distritos } from "@/lib/data"
-// import router from "next/router"
+import { ContratarModal } from "@/components/contratar-modal"
 
 export default function ClienteDashboard() {
+  const router = useRouter()
+  const { isAuthenticated, loading } = useAuth()
   const searchParams = useSearchParams()
   const [servicioFiltro, setServicioFiltro] = useState(searchParams.get("servicio") || "")
   const [distritoFiltro, setDistritoFiltro] = useState(searchParams.get("distrito") || "")
   const [busqueda, setBusqueda] = useState("")
   const [tecnicosFiltrados, setTecnicosFiltrados] = useState(tecnicos)
+
+  // Estado para el modal de contratación
+  const [modalOpen, setModalOpen] = useState(false)
+  const [tecnicoSeleccionado, setTecnicoSeleccionado] = useState<number | null>(null)
+
+  // Función para abrir el modal de contratación
+  const handleContratar = (tecnicoId: number) => {
+    setTecnicoSeleccionado(tecnicoId)
+    setModalOpen(true)
+  }
+
+  // Redirigir al login si no está autenticado
+  useEffect(() => {
+    if (!loading && !isAuthenticated) {
+      router.push("/login")
+    }
+  }, [isAuthenticated, loading, router])
 
   // Aplicar filtros cuando cambien los parámetros
   useEffect(() => {
@@ -47,29 +69,14 @@ export default function ClienteDashboard() {
     setTecnicosFiltrados(resultado)
   }, [servicioFiltro, distritoFiltro, busqueda])
 
+  // Si está cargando o no está autenticado, no mostrar nada
+  if (loading || !isAuthenticated) {
+    return null
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-50 w-full border-b bg-white">
-        <div className="container flex h-16 items-center justify-between mx-auto px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-[#333e5d]">
-            <span className="text-[#007aff]">Todito</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-gray-200 overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=100&width=100"
-                  alt="Usuario"
-                  width={32}
-                  height={32}
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-sm font-medium hidden md:inline">María Rodríguez</span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="flex-1 bg-gray-50">
         <div className="container py-6 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
@@ -93,7 +100,7 @@ export default function ClienteDashboard() {
                   <SelectValue placeholder="Tipo de servicio" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
+                  <SelectItem value="all">Todos los servicios</SelectItem>
                   {especialidades.map((especialidad) => (
                     <SelectItem key={especialidad.value} value={especialidad.value}>
                       {especialidad.label}
@@ -106,7 +113,7 @@ export default function ClienteDashboard() {
                   <SelectValue placeholder="Distrito o zona" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Todos</SelectItem>
+                  <SelectItem value="all">Todos los distritos</SelectItem>
                   {distritos.map((distrito) => (
                     <SelectItem key={distrito.value} value={distrito.value}>
                       {distrito.label}
@@ -115,14 +122,13 @@ export default function ClienteDashboard() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex items-center justify-between mt-4">
-              {/* <Button variant="outline" size="sm" className="text-[#333e5d]">
-                <Filter className="mr-2 h-4 w-4" /> Más filtros
-              </Button> */}
+            <div className="flex items-center mt-4">
               <Button
                 size="sm"
                 className="bg-[#007aff] hover:bg-[#0056b3]"
-                onClick={() => {}}
+                onClick={() => {
+                  // Aplicar filtros (ya se aplican automáticamente con useEffect)
+                }}
               >
                 <Search className="mr-2 h-4 w-4" /> Buscar
               </Button>
@@ -192,11 +198,15 @@ export default function ClienteDashboard() {
                         Ver perfil
                       </Button>
                     </Link>
-                    <Link href={tecnico.disponible ? `/cliente/tecnico/${tecnico.id}` : "#"} className="flex-1">
-                      <Button className="w-full bg-[#007aff] hover:bg-[#0056b3]" disabled={!tecnico.disponible}>
+                    <div className="flex-1">
+                      <Button
+                        className="w-full bg-[#007aff] hover:bg-[#0056b3]"
+                        disabled={!tecnico.disponible}
+                        onClick={() => tecnico.disponible && handleContratar(tecnico.id)}
+                      >
                         Contratar
                       </Button>
-                    </Link>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -204,6 +214,11 @@ export default function ClienteDashboard() {
           )}
         </div>
       </main>
+
+      {/* Modal de contratación */}
+      {tecnicoSeleccionado && (
+        <ContratarModal tecnicoId={tecnicoSeleccionado} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      )}
     </div>
   )
 }
