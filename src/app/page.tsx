@@ -40,7 +40,7 @@ export default function Home() {
         </section>
 
         {/* Beneficios Section */}
-        <section id="beneficios" className="bg-gray-50 py-16">
+        <section id="beneficios" className="bg-gray-50 py-16 scroll-mt-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-center text-[#333e5d] md:text-3xl mb-12">Beneficios clave</h2>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -77,7 +77,7 @@ export default function Home() {
         </section>
 
         {/* Como Funciona Section */}
-        <section id="como-funciona" className="py-16">
+        <section id="como-funciona" className="py-16 scroll-mt-16">
           <div className="container px-4 mx-auto sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-center text-[#333e5d] md:text-3xl mb-12">¿Cómo funciona?</h2>
             <div className="grid gap-8 md:grid-cols-3">
@@ -117,7 +117,7 @@ export default function Home() {
         </section>
 
         {/* Testimonios Section */}
-        <section id="testimonios" className="bg-gray-50 py-16">
+        <section id="testimonios" className="bg-gray-50 py-16 scroll-mt-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold text-center text-[#333e5d] md:text-3xl mb-12">Testimonios</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

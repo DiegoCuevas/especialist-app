@@ -67,11 +67,11 @@ export function Header() {
           <div className="flex flex-1 items-center justify-between">
             {/* Nav centrado */}
             <nav className="hidden md:flex gap-6 mx-auto">
-              <Link href="#como-funciona" className="text-sm font-medium hover:text-[#007aff]">
-                ¿Cómo funciona?
-              </Link>
               <Link href="#beneficios" className="text-sm font-medium hover:text-[#007aff]">
                 Beneficios
+              </Link>
+              <Link href="#como-funciona" className="text-sm font-medium hover:text-[#007aff]">
+                ¿Cómo funciona?
               </Link>
               <Link href="#testimonios" className="text-sm font-medium hover:text-[#007aff]">
                 Testimonios
