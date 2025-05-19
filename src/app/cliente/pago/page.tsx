@@ -74,7 +74,7 @@ export default function PaginaPago() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="container py-4">
+      <div className="container py-6">
         <Link
           href="/cliente/dashboard"
           className="inline-flex items-center text-sm font-medium text-[#333e5d] hover:text-[#007aff]"

@@ -51,11 +51,11 @@ export function Header() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router.push("/cliente/dashboard")}>
+                {/* <DropdownMenuItem onClick={() => router.push("/cliente/dashboard")}>
                   <User className="mr-2 h-4 w-4" />
                   <span>Mi perfil</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
+                </DropdownMenuItem> */}
+                {/* <DropdownMenuSeparator /> */}
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Cerrar sesión</span>
@@ -85,7 +85,7 @@ export function Header() {
                   Iniciar sesión
                 </Button>
               </Link>
-              <Link href="/registro">
+              <Link href="/elegir-registro">
                 <Button size="sm" className="bg-[#007aff] hover:bg-[#0056b3]">
                   Registrarse
                 </Button>
