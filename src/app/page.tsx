@@ -7,43 +7,16 @@ import { Button } from "@/components/ui/button"
 import { SearchForm } from "@/components/search-form"
 import { useEffect, useState } from "react"
 
+import { Header } from "@/components/header"
+
 export default function Home() {
   const [fecha, setFecha] = useState("")
   useEffect(() => {
     setFecha(new Date().getFullYear().toLocaleString())
   }, [])
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 w-full border-b bg-white">
-        <div className="container flex h-16 items-center justify-between mx-auto px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-[#333e5d]">
-            <span className="text-[#007aff]">Todito</span>
-          </Link>
-          <nav className="hidden md:flex gap-6">
-            <Link href="#como-funciona" className="text-sm font-medium hover:text-[#007aff]">
-              ¿Cómo funciona?
-            </Link>
-            <Link href="#beneficios" className="text-sm font-medium hover:text-[#007aff]">
-              Beneficios
-            </Link>
-            <Link href="#testimonios" className="text-sm font-medium hover:text-[#007aff]">
-              Testimonios
-            </Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link href="/cliente/registro">
-              <Button variant="outline" size="sm" className="hidden md:inline-flex">
-                Iniciar sesión
-              </Button>
-            </Link>
-            <Link href="/cliente/registro">
-              <Button size="sm" className="bg-[#007aff] hover:bg-[#0056b3]">
-                Registrarse
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="flex min-h-screen flex-col">     
+      <Header />
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-r from-[#333e5d] to-[#1a2036] text-white">
@@ -236,7 +209,7 @@ export default function Home() {
 
         {/* CTA Section */}
         <section className="bg-[#333e5d] text-white py-16">
-          <div className="container px-4 text-center mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container px-4 text-center mx-auto sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold md:text-3xl mb-4">¿Listo para encontrar al especialista perfecto?</h2>
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
               Únete a miles de usuarios que ya confían en nosotros para solucionar los problemas de su hogar.
@@ -261,7 +234,7 @@ export default function Home() {
         </section>
       </main>
       <footer className="bg-[#1a2036] text-white py-12">
-        <div className="container px-4 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-4">
             <div>
               <Link href="/" className="flex items-center gap-2 font-bold text-xl mb-4">
@@ -381,7 +354,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; {fecha} Todito. Todos los derechos reservados.</p>
+            <p>&copy; {fecha} TécnicoConnect. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
