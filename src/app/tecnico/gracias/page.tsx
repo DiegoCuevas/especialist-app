@@ -36,9 +36,11 @@ export default function TecnicoGracias() {
                 <Home className="mr-2 h-4 w-4" /> Volver al inicio
               </Button>
             </Link>
-            <Button variant="outline" className="w-full">
+            <Link href="/cliente/dashboard">
+              <Button variant="outline" className="w-full">
               Explorar como visitante
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
       </main>
