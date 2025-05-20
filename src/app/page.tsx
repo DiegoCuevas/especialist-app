@@ -7,12 +7,15 @@ import { Button } from "@/components/ui/button"
 import { SearchForm } from "@/components/search-form"
 import { useEffect, useState } from "react"
 import { Header } from "@/components/header"
+import { tecnicos } from "@/lib/data"
 
 export default function Home() {
   const [fecha, setFecha] = useState("")
+  const tecnico = tecnicos.find((t) => t.id === 5)
   useEffect(() => {
     setFecha(new Date().getFullYear().toLocaleString())
   }, [])
+
   return (
     <div className="flex min-h-screen flex-col">     
       <Header />
@@ -121,7 +124,7 @@ export default function Home() {
                 <div className="flex items-center gap-4 mb-4">
                   <div className="h-12 w-12 rounded-full bg-gray-200 overflow-hidden">
                     <Image
-                      src="/placeholder.svg?height=100&width=100"
+                      src="/sin-perfil.webp"
                       alt="Cliente"
                       width={48}
                       height={48}
@@ -149,7 +152,7 @@ export default function Home() {
                 <div className="flex items-center gap-4 mb-4">
                   <div className="h-12 w-12 rounded-full bg-gray-200 overflow-hidden">
                     <Image
-                      src="/placeholder.svg?height=100&width=100"
+                      src="/sin-perfil.webp"
                       alt="Cliente"
                       width={48}
                       height={48}
@@ -177,7 +180,7 @@ export default function Home() {
                 <div className="flex items-center gap-4 mb-4">
                   <div className="h-12 w-12 rounded-full bg-gray-200 overflow-hidden">
                     <Image
-                      src="/placeholder.svg?height=100&width=100"
+                      src={tecnico?.imagen || "/sin-perfil.webp"}
                       alt="especialista"
                       width={48}
                       height={48}
@@ -185,8 +188,8 @@ export default function Home() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold">Jorge Salazar</h3>
-                    <p className="text-sm text-gray-500">especialista Electricista</p>
+                    <h3 className="font-bold">{tecnico?.nombre}</h3>
+                    <p className="text-sm text-gray-500">Especialista {tecnico?.especialidadNombre}</p>
                   </div>
                 </div>
                 <div className="flex mb-3 items-center">

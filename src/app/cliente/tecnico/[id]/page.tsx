@@ -74,7 +74,7 @@ export default function TecnicoDetalle() {
                     <div className="flex flex-col items-center">
                       <div className="h-32 w-32 rounded-full bg-gray-200 overflow-hidden mb-3">
                         <Image
-                          src={tecnico.imagen || "/placeholder.svg"}
+                          src={tecnico.imagen || "/sin-perfil.webp"}
                           alt={tecnico.nombre}
                           width={128}
                           height={128}
@@ -108,7 +108,7 @@ export default function TecnicoDetalle() {
                       <div className="grid gap-3 mb-6">
                         <div className="flex items-center text-gray-600">
                           <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                          <span>Disponible de Lunes a Sábado, 8:00 AM - 6:00 PM</span>
+                          <span>Disponible solo Lunes y Jueves, 8:00 AM - 6:00 PM</span>
                         </div>
                         <div className="flex items-center text-gray-600">
                           <MapPin className="h-4 w-4 mr-2 text-gray-400" />
@@ -227,7 +227,7 @@ export default function TecnicoDetalle() {
                           <div className="flex items-center gap-3 mb-3">
                             <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden">
                               <Image
-                                src="/placeholder.svg?height=100&width=100"
+                                src="/sin-perfil.webp"
                                 alt={resena.cliente}
                                 width={40}
                                 height={40}

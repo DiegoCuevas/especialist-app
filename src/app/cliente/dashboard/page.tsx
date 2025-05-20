@@ -149,7 +149,7 @@ export default function ClienteDashboard() {
                     <div className="flex items-start gap-4">
                       <div className="h-16 w-16 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                         <Image
-                          src={tecnico.imagen || "/placeholder.svg"}
+                          src={tecnico.imagen || "/sin-perfil.webp"}
                           alt={tecnico.nombre}
                           width={64}
                           height={64}
