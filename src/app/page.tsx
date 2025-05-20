@@ -354,7 +354,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; {fecha} TécnicoConnect. Todos los derechos reservados.</p>
+            <p>&copy; {fecha} Todito. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
