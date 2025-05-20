@@ -42,6 +42,9 @@ export function Header() {
               <Link href="#testimonios" className="text-sm font-medium hover:text-[#007aff]">
                 Testimonios
               </Link>
+              <Link href="#contacto" className="text-sm font-medium hover:text-[#007aff]">
+                Contacto
+              </Link>
             </nav>
 
         {/* Nav y Botones */}

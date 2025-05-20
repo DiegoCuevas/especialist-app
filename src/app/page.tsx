@@ -1,13 +1,14 @@
 "use client"
 import Link from "next/link"
 import Image from "next/image"
-import { Star, Shield, CreditCard, HeadphonesIcon, MapPin } from "lucide-react"
+import { Star, Shield, CreditCard, HeadphonesIcon, MapPin, MessageSquare, HelpCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { SearchForm } from "@/components/search-form"
 import { useEffect, useState } from "react"
 import { Header } from "@/components/header"
 import { tecnicos } from "@/lib/data"
+import { ContactForm } from "@/components/contact-form"
 
 export default function Home() {
   const [fecha, setFecha] = useState("")
@@ -227,6 +228,61 @@ export default function Home() {
                   Ofrecer mis servicios
                 </Button>
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Contacto Section */}
+        <section id="contacto" className="py-16">
+          <div className="container px-4 mx-auto sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-10">
+                <h2 className="text-2xl font-bold text-[#333e5d] md:text-3xl mb-3">Contáctanos</h2>
+                <p className="text-gray-600 max-w-xl mx-auto">
+                  ¿Tienes alguna pregunta o sugerencia? Nos encantaría escucharte. Completa el formulario y te
+                  responderemos a la brevedad.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="font-bold text-lg mb-4 flex items-center">
+                    <MessageSquare className="h-5 w-5 text-[#007aff] mr-2" /> Envíanos un mensaje
+                  </h3>
+                  <ContactForm />
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="font-bold text-lg mb-4 flex items-center">
+                    <HelpCircle className="h-5 w-5 text-[#007aff] mr-2" /> Preguntas frecuentes
+                  </h3>
+
+                  <div className="space-y-4">
+                    <div>
+                      <p className="font-medium">¿Qué pasa si no estoy satisfecho con el servicio?</p>
+                      <p className="text-gray-600 text-sm mt-1">
+                        Ofrecemos garantía de satisfacción. Si no estás conforme con el servicio, puedes reportarlo y te
+                        ayudaremos a encontrar una solución o te reembolsaremos el pago.
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="font-medium">¿Cuál es el tiempo de respuesta promedio?</p>
+                      <p className="text-gray-600 text-sm mt-1">
+                        La mayoría de los técnicos responden en menos de 1 hora y pueden programar visitas el mismo día
+                        o al día siguiente según su disponibilidad.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-gray-100">
+                    <p className="text-sm text-gray-600">
+                      ¿No encuentras respuesta a tu pregunta? Contáctanos directamente a través del formulario o
+                      llámanos al <span className="font-medium">+51 (01) 123-4567</span>.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
