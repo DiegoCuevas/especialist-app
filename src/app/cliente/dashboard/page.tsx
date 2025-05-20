@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { Header } from "@/components/header"
 import Link from "next/link"
@@ -11,19 +10,20 @@ import { Search, Star, MapPin } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { tecnicos, especialidades, distritos } from "@/lib/data"
 import { ContratarModal } from "@/components/contratar-modal"
 
 export default function ClienteDashboard() {
-  const router = useRouter()
-  const { isAuthenticated, loading } = useAuth()
+  const { isAuthenticated } = useAuth()
   const searchParams = useSearchParams()
   const [servicioFiltro, setServicioFiltro] = useState(searchParams.get("servicio") || "")
   const [distritoFiltro, setDistritoFiltro] = useState(searchParams.get("distrito") || "")
   const [busqueda, setBusqueda] = useState("")
   const [tecnicosFiltrados, setTecnicosFiltrados] = useState(tecnicos)
+  const [error, setError] = useState("")
 
   // Estado para el modal de contratación
   const [modalOpen, setModalOpen] = useState(false)
@@ -31,16 +31,16 @@ export default function ClienteDashboard() {
 
   // Función para abrir el modal de contratación
   const handleContratar = (tecnicoId: number) => {
+    if (!isAuthenticated) {
+      setError("Debes iniciar sesión para contratar a un especialista.")
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth"})
+
+      return
+    }
+    setError("") // limpia cualquier error anterior
     setTecnicoSeleccionado(tecnicoId)
     setModalOpen(true)
   }
-
-  // Redirigir al login si no está autenticado
-  useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      router.push("/login")
-    }
-  }, [isAuthenticated, loading, router])
 
   // Aplicar filtros cuando cambien los parámetros
   useEffect(() => {
@@ -69,10 +69,6 @@ export default function ClienteDashboard() {
     setTecnicosFiltrados(resultado)
   }, [servicioFiltro, distritoFiltro, busqueda])
 
-  // Si está cargando o no está autenticado, no mostrar nada
-  if (loading || !isAuthenticated) {
-    return null
-  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -82,6 +78,11 @@ export default function ClienteDashboard() {
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-[#333e5d] mb-2">Encuentra especialistas disponibles</h1>
             <p className="text-gray-500">Busca por especialidad o ubicación para encontrar al especialista ideal</p>
+            {error && (
+              <Alert variant="destructive" className="mt-4">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
           </div>
 
           <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
@@ -122,7 +123,7 @@ export default function ClienteDashboard() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex items-center mt-4">
+            {/* <div className="flex items-center mt-4">
               <Button
                 size="sm"
                 className="bg-[#007aff] hover:bg-[#0056b3]"
@@ -132,7 +133,7 @@ export default function ClienteDashboard() {
               >
                 <Search className="mr-2 h-4 w-4" /> Buscar
               </Button>
-            </div>
+            </div> */}
           </div>
 
           {tecnicosFiltrados.length === 0 ? (

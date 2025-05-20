@@ -37,8 +37,8 @@ export function Header() {
           <div className="flex items-center gap-4 ml-auto">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#007aff] text-white">
+                <Button className="relative h-8 w-8 rounded-full overflow-hidden bg-[#007aff]">
+                  <div className="flex h-full w-full items-center justify-center rounded-full text-white text-sm">
                     {user?.nombre.charAt(0).toUpperCase()}
                   </div>
                 </Button>

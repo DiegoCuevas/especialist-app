@@ -5,21 +5,38 @@ import Link from "next/link"
 import Image from "next/image"
 import { useParams, useRouter } from "next/navigation"
 import { ArrowLeft, Star, Shield, Clock, MapPin, Calendar, MessageSquare, Award } from "lucide-react"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useAuth } from "@/contexts/auth-context"
 
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { tecnicos } from "@/lib/data"
 import { ContratarModal } from "@/components/contratar-modal"
+import { Header } from "@/components/header"
+
 
 export default function TecnicoDetalle() {
   const params = useParams()
   const router = useRouter()
   const tecnicoId = Number(params.id)
+  const [error, setError] = useState("")
+  const { isAuthenticated } = useAuth()
 
   // Estado para el modal de contratación
   const [modalOpen, setModalOpen] = useState(false)
+  const [tecnicoSeleccionado, setTecnicoSeleccionado] = useState<number | null>(null)
 
+  const handleContratar = (tecnicoId: number) => {
+    if (!isAuthenticated) {
+      setError("Debes iniciar sesión para contratar a un especialista.")
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth"})
+      return
+    }
+    setError("") // limpia cualquier error anterior
+    setTecnicoSeleccionado(tecnicoId)
+    setModalOpen(true)
+  }
   // Buscar el técnico por ID
   const tecnico = tecnicos.find((t) => t.id === tecnicoId)
 
@@ -31,27 +48,7 @@ export default function TecnicoDetalle() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-50 w-full border-b bg-white">
-        <div className="container flex h-16 items-center justify-between mx-auto px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-[#333e5d]">
-            <span className="text-[#007aff]">Todito</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-full bg-gray-200 overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=100&width=100"
-                  alt="Usuario"
-                  width={32}
-                  height={32}
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-sm font-medium hidden md:inline">María Rodríguez</span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="flex-1 bg-gray-50">
         <div className="container py-6 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
@@ -60,8 +57,13 @@ export default function TecnicoDetalle() {
               className="inline-flex items-center text-sm font-medium text-[#333e5d] hover:text-[#007aff] mb-4"
             >
               <ArrowLeft className="mr-1 h-4 w-4" />
-              Volver a resultados
+              Volver
             </Link>
+            {error && (
+              <Alert variant="destructive" className="mt-4">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
           </div>
 
           <div className="grid gap-6 lg:grid-cols-3">
@@ -134,7 +136,7 @@ export default function TecnicoDetalle() {
                         <Button
                           className="bg-[#007aff] hover:bg-[#0056b3]"
                           disabled={!tecnico.disponible}
-                          onClick={() => tecnico.disponible && setModalOpen(true)}
+                          onClick={() => tecnico.disponible && handleContratar(tecnico.id)}
                         >
                           Contratar ahora
                         </Button>
@@ -325,7 +327,9 @@ export default function TecnicoDetalle() {
       </main>
 
       {/* Modal de contratación */}
-      <ContratarModal tecnicoId={tecnicoId} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      {tecnicoSeleccionado && (
+        <ContratarModal tecnicoId={tecnicoSeleccionado} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      )}
     </div>
   )
 }
