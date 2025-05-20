@@ -3,7 +3,7 @@ export const tecnicos = [
   {
     id: 1,
     nombre: "Luis Salazar",
-    especialidad: "gasfiteria",
+    especialidad: "plomeria",
     especialidadNombre: "Gasfitero",
     distritos: ["miraflores", "sanisidro"],
     distritosNombre: ["Miraflores", "San Isidro"],
@@ -65,7 +65,7 @@ export const tecnicos = [
   {
     id: 2,
     nombre: "Víctor Herrera",
-    especialidad: "gasfiteria",
+    especialidad: "plomeria",
     especialidadNombre: "Gasfitero",
     distritos: ["sanborja", "surco"],
     distritosNombre: ["San Borja", "Surco"],
@@ -110,7 +110,7 @@ export const tecnicos = [
   {
     id: 3,
     nombre: "Raúl Zapata",
-    especialidad: "gasfiteria",
+    especialidad: "plomeria",
     especialidadNombre: "Gasfitero",
     distritos: ["lamolina", "surco"],
     distritosNombre: ["La Molina", "Surco"],
