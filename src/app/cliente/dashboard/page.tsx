@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useAuth } from "@/contexts/auth-context"
-import { Header } from "@/components/header"
+import { HeaderDashboard } from "@/components/header-dashboard"
 import Link from "next/link"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
@@ -72,7 +72,7 @@ export default function ClienteDashboard() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <HeaderDashboard />
       <main className="flex-1 bg-gray-50">
         <div className="container py-6 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
