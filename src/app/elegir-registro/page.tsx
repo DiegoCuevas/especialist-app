@@ -31,7 +31,7 @@ export default function ElegirRegistro() {
                 <p className="text-gray-600 mb-6 flex-grow">
                   Regístrate como cliente para encontrar especialistas confiables que solucionen los problemas de tu hogar.
                 </p>
-                <Link href="/cliente/registro" className="w-full">
+                <Link href="/registro" className="w-full">
                   <Button className="w-full bg-[#007aff] hover:bg-[#0056b3]">Registrarme como cliente</Button>
                 </Link>
               </div>
