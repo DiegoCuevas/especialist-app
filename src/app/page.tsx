@@ -233,7 +233,7 @@ export default function Home() {
         </section>
 
         {/* Contacto Section */}
-        <section id="contacto" className="py-16">
+        <section id="contacto" className="py-16 scroll-mt-16">
           <div className="container px-4 mx-auto sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
