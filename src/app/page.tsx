@@ -6,7 +6,6 @@ import { Star, Shield, CreditCard, HeadphonesIcon, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SearchForm } from "@/components/search-form"
 import { useEffect, useState } from "react"
-
 import { Header } from "@/components/header"
 
 export default function Home() {

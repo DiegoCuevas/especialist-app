@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { LogOut } from "lucide-react"
+import Image from 'next/image';
 
 import { Button } from "@/components/ui/button"
 import {
@@ -29,7 +30,7 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between px-4 mx-auto sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-bold text-xl text-[#333e5d]">
-          <span className="text-[#007aff]">Todito</span>
+          <Image src="/icon.jpeg" alt="Logo" width={90} height={90} className="rounded-full" />
         </Link>
         <nav className="hidden md:flex gap-6 mx-auto">
               <Link href="#beneficios" className="text-sm font-medium hover:text-[#007aff]">
