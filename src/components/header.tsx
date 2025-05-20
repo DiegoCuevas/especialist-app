@@ -31,6 +31,17 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2 font-bold text-xl text-[#333e5d]">
           <span className="text-[#007aff]">Todito</span>
         </Link>
+        <nav className="hidden md:flex gap-6 mx-auto">
+              <Link href="#beneficios" className="text-sm font-medium hover:text-[#007aff]">
+                Beneficios
+              </Link>
+              <Link href="#como-funciona" className="text-sm font-medium hover:text-[#007aff]">
+                ¿Cómo funciona?
+              </Link>
+              <Link href="#testimonios" className="text-sm font-medium hover:text-[#007aff]">
+                Testimonios
+              </Link>
+            </nav>
 
         {/* Nav y Botones */}
         {isAuthenticated ? (
@@ -64,20 +75,7 @@ export function Header() {
             </DropdownMenu>
           </div>
         ) : (
-          <div className="flex flex-1 items-center justify-between">
-            {/* Nav centrado */}
-            <nav className="hidden md:flex gap-6 mx-auto">
-              <Link href="#beneficios" className="text-sm font-medium hover:text-[#007aff]">
-                Beneficios
-              </Link>
-              <Link href="#como-funciona" className="text-sm font-medium hover:text-[#007aff]">
-                ¿Cómo funciona?
-              </Link>
-              <Link href="#testimonios" className="text-sm font-medium hover:text-[#007aff]">
-                Testimonios
-              </Link>
-            </nav>
-
+          <div className="flex items-center justify-between">
             {/* Botones */}
             <div className="hidden md:flex items-center gap-2">
               <Link href="/login">
