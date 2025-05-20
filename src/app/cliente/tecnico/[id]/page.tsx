@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { tecnicos } from "@/lib/data"
 import { ContratarModal } from "@/components/contratar-modal"
-import { Header } from "@/components/header"
+import { HeaderDashboard } from "@/components/header-dashboard"
 
 
 export default function TecnicoDetalle() {
@@ -48,7 +48,7 @@ export default function TecnicoDetalle() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <HeaderDashboard />
       <main className="flex-1 bg-gray-50">
         <div className="container py-6 mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
