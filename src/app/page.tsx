@@ -89,8 +89,6 @@ export default function Home() {
                 <p className="text-gray-600">
                   Selecciona el tipo de servicio que necesitas y tu ubicación para encontrar especialistas disponibles.
                 </p>
-                {/* Connector line for desktop */}
-                <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-[#a39e9e] -z-10 transform -translate-x-8" />
               </div>
               <div className="relative flex flex-col items-center text-center">
                 <div className="h-16 w-16 rounded-full bg-[#007aff] flex items-center justify-center mb-4 text-white font-bold text-xl">
@@ -100,8 +98,6 @@ export default function Home() {
                 <p className="text-gray-600">
                   Revisa perfiles, calificaciones y elige al especialista que mejor se adapte a tus necesidades.
                 </p>
-                {/* Connector line for desktop */}
-                <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-[#a39e9e] -z-10 transform -translate-x-8" />
               </div>
               <div className="flex flex-col items-center text-center">
                 <div className="h-16 w-16 rounded-full bg-[#007aff] flex items-center justify-center mb-4 text-white font-bold text-xl">
