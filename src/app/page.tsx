@@ -214,7 +214,7 @@ export default function Home() {
               Únete a miles de usuarios que ya confían en nosotros para solucionar los problemas de su hogar.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/cliente/registro">
+              <Link href="/cliente/dashboard">
                 <Button size="lg" className="bg-[#007aff] hover:bg-[#0056b3] w-full sm:w-auto cursor-pointer">
                   Buscar un especialista
                 </Button>
