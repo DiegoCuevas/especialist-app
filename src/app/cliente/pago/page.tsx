@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
-import { ArrowLeft, CreditCard, CheckCircle } from "lucide-react"
+import { ArrowLeft, CreditCard, CheckCircle, Smartphone } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -24,6 +24,7 @@ export default function PaginaPago() {
   const horasEstimadas = Number(searchParams.get("horas") || "2")
 
   const [procesando, setProcesando] = useState(false)
+  const [metodoPago, setMetodoPago] = useState("tarjeta")
   const [formData, setFormData] = useState({
     titular: "",
     numero: "",
@@ -53,6 +54,10 @@ export default function PaginaPago() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
+  const handleMetodoPagoChange = (value: string) => {
+    setMetodoPago(value)
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setProcesando(true)
@@ -72,9 +77,28 @@ export default function PaginaPago() {
     }, 2000)
   }
 
+  const handleConfirmarYape = () => {
+    setProcesando(true)
+
+    // Simulamos el procesamiento del pago con Yape
+    setTimeout(() => {
+      setProcesando(false)
+
+      // Redirigimos a la página de éxito con los parámetros
+      const params = new URLSearchParams({
+        tecnicoId: tecnicoId.toString(),
+        total: total.toString(),
+        horas: horasEstimadas.toString(),
+        metodoPago: "yape",
+      }).toString()
+
+      router.push(`/cliente/exito?${params}`)
+    }, 2000)
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="container py-6">
+      <div className="container py-4">
         <Link
           href="/cliente/dashboard"
           className="inline-flex items-center text-sm font-medium text-[#333e5d] hover:text-[#007aff]"
@@ -155,86 +179,138 @@ export default function PaginaPago() {
             <Card>
               <CardHeader>
                 <CardTitle>Información de pago</CardTitle>
-                <CardDescription>Ingresa los datos de tu tarjeta para procesar el pago</CardDescription>
+                <CardDescription>Selecciona tu método de pago preferido</CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <RadioGroup defaultValue="tarjeta" className="mb-4">
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="tarjeta" id="tarjeta" />
-                      <Label htmlFor="tarjeta" className="flex items-center">
-                        <CreditCard className="h-4 w-4 mr-2 text-gray-500" />
-                        Tarjeta de crédito o débito
-                      </Label>
-                    </div>
-                  </RadioGroup>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="titular">Nombre del titular</Label>
-                    <Input
-                      id="titular"
-                      name="titular"
-                      value={formData.titular}
-                      onChange={handleChange}
-                      placeholder="Como aparece en la tarjeta"
-                      required
-                    />
+                <RadioGroup
+                  defaultValue="tarjeta"
+                  value={metodoPago}
+                  onValueChange={handleMetodoPagoChange}
+                  className="mb-6"
+                >
+                  <div className="flex items-center space-x-2 mb-2">
+                    <RadioGroupItem value="tarjeta" id="tarjeta" />
+                    <Label htmlFor="tarjeta" className="flex items-center">
+                      <CreditCard className="h-4 w-4 mr-2 text-gray-500" />
+                      Tarjeta de crédito o débito
+                    </Label>
                   </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="numero">Número de tarjeta</Label>
-                    <Input
-                      id="numero"
-                      name="numero"
-                      value={formData.numero}
-                      onChange={handleChange}
-                      placeholder="0000 0000 0000 0000"
-                      required
-                    />
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="yape" id="yape" />
+                    <Label htmlFor="yape" className="flex items-center">
+                      <Smartphone className="h-4 w-4 mr-2 text-gray-500" />
+                      Yape
+                    </Label>
                   </div>
+                </RadioGroup>
 
-                  <div className="grid grid-cols-2 gap-4">
+                {metodoPago === "tarjeta" ? (
+                  <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="expiracion">Fecha de expiración</Label>
+                      <Label htmlFor="titular">Nombre del titular</Label>
                       <Input
-                        id="expiracion"
-                        name="expiracion"
-                        value={formData.expiracion}
+                        id="titular"
+                        name="titular"
+                        value={formData.titular}
                         onChange={handleChange}
-                        placeholder="MM/AA"
+                        placeholder="Como aparece en la tarjeta"
                         required
                       />
                     </div>
+
                     <div className="space-y-2">
-                      <Label htmlFor="cvv">Código de seguridad (CVV)</Label>
+                      <Label htmlFor="numero">Número de tarjeta</Label>
                       <Input
-                        id="cvv"
-                        name="cvv"
-                        value={formData.cvv}
+                        id="numero"
+                        name="numero"
+                        value={formData.numero}
                         onChange={handleChange}
-                        placeholder="123"
+                        placeholder="0000 0000 0000 0000"
                         required
                       />
                     </div>
-                  </div>
 
-                  <CardFooter className="flex flex-col gap-4 px-0 pt-4">
-                    <Button type="submit" className="w-full bg-[#007aff] hover:bg-[#0056b3]" disabled={procesando}>
-                      {procesando ? "Procesando pago..." : `Pagar S/. ${total.toFixed(2)}`}
-                    </Button>
-                    <p className="text-xs text-gray-500 text-center">
-                      Al hacer clic en &quot;Confirmar pago&quot;, aceptas nuestros{" "}
-                      <Link href="#" className="text-[#007aff] hover:underline">
-                        términos y condiciones
-                      </Link>{" "}
-                      y{" "}
-                      <Link href="#" className="text-[#007aff] hover:underline">
-                        política de privacidad
-                      </Link>
-                      .
-                    </p>
-                  </CardFooter>
-                </form>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="expiracion">Fecha de expiración</Label>
+                        <Input
+                          id="expiracion"
+                          name="expiracion"
+                          value={formData.expiracion}
+                          onChange={handleChange}
+                          placeholder="MM/AA"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="cvv">Código de seguridad (CVV)</Label>
+                        <Input
+                          id="cvv"
+                          name="cvv"
+                          value={formData.cvv}
+                          onChange={handleChange}
+                          placeholder="123"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <CardFooter className="flex flex-col gap-4 px-0 pt-4">
+                      <Button type="submit" className="w-full bg-[#007aff] hover:bg-[#0056b3]" disabled={procesando}>
+                        {procesando ? "Procesando pago..." : `Pagar S/. ${total.toFixed(2)}`}
+                      </Button>
+                      <p className="text-xs text-gray-500 text-center">
+                        Al hacer clic en &quot;Confirmar pago&quot;, aceptas nuestros{" "}
+                        <Link href="#" className="text-[#007aff] hover:underline">
+                          términos y condiciones
+                        </Link>{" "}
+                        y{" "}
+                        <Link href="#" className="text-[#007aff] hover:underline">
+                          política de privacidad
+                        </Link>
+                        .
+                      </p>
+                    </CardFooter>
+                  </form>
+                ) : (
+                  <div className="space-y-6">
+                    <div className="bg-purple-50 p-4 rounded-md">
+                      <div className="text-center mb-4">
+                        <h3 className="font-medium text-purple-800">Paga con Yape</h3>
+                        <p className="text-sm text-purple-700">Escanea el código QR con la app de Yape</p>
+                      </div>
+
+                      <div className="flex justify-center mb-4">
+                        <div className="bg-white p-2 rounded-md border border-purple-200">
+                          <Image
+                            src="/codigo-qr.jpeg"
+                            alt="Código QR Yape"
+                            width={200}
+                            height={200}
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="text-center text-sm text-purple-700 mb-4">
+                        <p className="font-medium">Monto a pagar: S/. {total.toFixed(2)}</p>
+                        <p>Envía el pago a nombre de &quot;Todito&quot;</p>
+                      </div>
+
+                      <Button
+                        onClick={handleConfirmarYape}
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                        disabled={procesando}
+                      >
+                        {procesando ? "Verificando pago..." : "He realizado el pago"}
+                      </Button>
+                    </div>
+
+                    <div className="text-center text-sm text-gray-500">
+                      <p>Una vez realizado el pago, haz clic en &quot;He realizado el pago&quot; para confirmar tu reserva.</p>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>

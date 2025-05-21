@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
-import { CheckCircle, Home } from "lucide-react"
+import { CheckCircle, Calendar, MessageSquare, Home, CreditCard, Smartphone } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { tecnicos } from "@/lib/data"
@@ -16,6 +16,7 @@ export default function PaginaExito() {
   const tecnicoId = Number(searchParams.get("tecnicoId") || "0")
   const total = Number(searchParams.get("total") || "0")
   const horas = Number(searchParams.get("horas") || "0")
+  const metodoPago = searchParams.get("metodoPago") || "tarjeta"
 
   // Obtener datos del técnico
   const tecnico = tecnicos.find((t) => t.id === tecnicoId)
@@ -91,19 +92,29 @@ export default function PaginaExito() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Método de pago:</span>
-                <span className="font-medium">Tarjeta terminada en 1234</span>
+                <span className="font-medium flex items-center">
+                  {metodoPago === "yape" ? (
+                    <>
+                      <Smartphone className="h-3 w-3 mr-1 text-purple-600" /> Yape
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="h-3 w-3 mr-1 text-gray-600" /> Tarjeta terminada en 1234
+                    </>
+                  )}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* <div className="grid gap-3 mb-6">
+          <div className="grid gap-3 mb-6">
             <Button variant="outline" className="flex items-center justify-center">
               <Calendar className="mr-2 h-4 w-4" /> Ver detalles de la reserva
             </Button>
             <Button variant="outline" className="flex items-center justify-center">
               <MessageSquare className="mr-2 h-4 w-4" /> Contactar al técnico
             </Button>
-          </div> */}
+          </div>
 
           <Link href="/cliente/dashboard">
             <Button className="w-full bg-[#007aff] hover:bg-[#0056b3]">
